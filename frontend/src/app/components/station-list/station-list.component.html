@@ -1,0 +1,47 @@
+<div class="container py-5">
+  <!-- EN-TÊTE + BOUTON AJOUT -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary fw-bold">Stations Essence</h2>
+    <a routerLink="/station/add" class="btn btn-success btn-lg shadow-sm">
+      + Ajouter Station
+    </a>
+  </div>
+
+  <!-- LISTE DES STATIONS -->
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4" *ngFor="let s of stations$ | async">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body p-4">
+          <h5 class="card-title text-primary fw-bold">{{ s.nom }}</h5>
+          <p class="card-text text-muted mb-1">
+            <strong>Ville :</strong> {{ s.ville }}
+          </p>
+          <p class="card-text text-muted mb-3">
+            <strong>Adresse :</strong> {{ s.adresse }}
+          </p>
+
+          <!-- BOUTONS CRUD -->
+          <div class="d-flex gap-2">
+            <a [routerLink]="['/station', s.idStation, 'prix']" class="btn btn-outline-primary btn-sm flex-fill">
+              Voir Prix
+            </a>
+            <a [routerLink]="['/station/edit', s.idStation]" class="btn btn-warning btn-sm text-white flex-fill">
+              Modifier
+            </a>
+            <button class="btn btn-danger btn-sm flex-fill" (click)="delete(s.idStation)">
+              Supprimer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SI VIDE -->
+  <div class="text-center py-5" *ngIf="!(stations$ | async)?.length">
+    <p class="text-muted fs-3">Aucune station</p>
+    <a routerLink="/station/add" class="btn btn-success btn-lg">
+      Ajouter la première station
+    </a>
+  </div>
+</div>

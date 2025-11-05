@@ -1,0 +1,96 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-6">
+      <div class="card shadow-lg border-0 rounded-4">
+        
+        <!-- En-tête -->
+        <div class="card-header bg-gradient text-white text-center py-4 rounded-top-4" 
+             [style.background]="isEdit ? 'linear-gradient(45deg, #f39c12, #e67e22)' : 'linear-gradient(45deg, #27ae60, #2ecc71)'">
+          <h3 class="mb-0 fw-bold">
+            {{ isEdit ? 'Modifier la Station' : 'Ajouter une Station' }}
+          </h3>
+        </div>
+
+        <!-- Corps du formulaire -->
+        <div class="card-body p-5">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+
+            <!-- Nom -->
+            <div class="mb-4">
+              <label for="nom" class="form-label fw-semibold text-dark">
+                Nom de la Station <span class="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                id="nom"
+                class="form-control form-control-lg rounded-3"
+                formControlName="nom"
+                [class.is-invalid]="form.get('nom')?.invalid && form.get('nom')?.touched"
+                placeholder="Ex: Total Lyon Part-Dieu"
+              >
+              <div class="invalid-feedback">
+                Le nom est obligatoire.
+              </div>
+            </div>
+
+            <!-- Ville -->
+            <div class="mb-4">
+              <label for="ville" class="form-label fw-semibold text-dark">
+                Ville <span class="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                id="ville"
+                class="form-control form-control-lg rounded-3"
+                formControlName="ville"
+                [class.is-invalid]="form.get('ville')?.invalid && form.get('ville')?.touched"
+                placeholder="Ex: Lyon"
+              >
+              <div class="invalid-feedback">
+                La ville est obligatoire.
+              </div>
+            </div>
+
+            <!-- Adresse -->
+            <div class="mb-4">
+              <label for="adresse" class="form-label fw-semibold text-dark">
+                Adresse Complète <span class="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                id="adresse"
+                class="form-control form-control-lg rounded-3"
+                formControlName="adresse"
+                [class.is-invalid]="form.get('adresse')?.invalid && form.get('adresse')?.touched"
+                placeholder="Ex: 12 Rue de la République, 69001 Lyon"
+              >
+              <div class="invalid-feedback">
+                L'adresse est obligatoire.
+              </div>
+            </div>
+
+            <!-- Boutons -->
+            <div class="d-flex gap-3 justify-content-end mt-5">
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-lg px-5 rounded-3"
+                (click)="cancel()"
+              >
+                Annuler
+              </button>
+              <button
+                type="submit"
+                class="btn btn-success btn-lg px-5 rounded-3 shadow-sm"
+                [disabled]="form.invalid"
+              >
+                <span *ngIf="isEdit">Mettre à jour</span>
+                <span *ngIf="!isEdit">Ajouter</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

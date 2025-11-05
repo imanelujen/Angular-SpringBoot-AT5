@@ -1,0 +1,37 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-success fw-bold">Carburants</h2>
+    <a routerLink="/carburant/add" class="btn btn-success btn-lg shadow-sm">
+      + Ajouter Carburant
+    </a>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4" *ngFor="let c of carburants$ | async">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body p-4">
+          <h5 class="card-title text-success fw-bold">{{ c.nom }}</h5>
+          <p class="card-text text-muted" *ngIf="c.description">
+            {{ c.description }}
+          </p>
+
+          <div class="d-flex gap-2">
+            <a [routerLink]="['/carburant/edit', c.idCarburant]" class="btn btn-warning btn-sm text-white flex-fill">
+              Modifier
+            </a>
+            <button class="btn btn-danger btn-sm flex-fill" (click)="delete(c.idCarburant)">
+              Supprimer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center py-5" *ngIf="!(carburants$ | async)?.length">
+    <p class="text-muted fs-3">Aucun carburant</p>
+    <a routerLink="/carburant/add" class="btn btn-success btn-lg">
+      Ajouter le premier carburant
+    </a>
+  </div>
+</div>
